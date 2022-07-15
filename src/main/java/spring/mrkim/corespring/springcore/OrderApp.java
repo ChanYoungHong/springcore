@@ -9,16 +9,18 @@ import spring.mrkim.corespring.springcore.service.MemberService;
 import spring.mrkim.corespring.springcore.service.MemberServiceImpl;
 
 public class OrderApp {
-
-
     public static void main(String[] args) {
 
-        MemberService memberSerivce = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
+
+//        MemberService memberSerivce = new MemberServiceImpl(null);
+//        OrderService orderService = new OrderServiceImpl(null, null);
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
-        memberSerivce.join(member);
+        memberService.join(member);
 
         Order order = orderService.createOrder(memberId, "itemA", 10000);
 

@@ -2,11 +2,15 @@ package spring.mrkim.corespring.springcore.service;
 
 import spring.mrkim.corespring.springcore.member.Member;
 import spring.mrkim.corespring.springcore.repository.MemberRepository;
-import spring.mrkim.corespring.springcore.repository.MemoryMemberRepository;
 
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberServiceImpl(
+        MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     @Override
     public void join(Member member) {

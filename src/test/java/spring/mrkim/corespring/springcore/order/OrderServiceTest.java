@@ -1,7 +1,9 @@
 package spring.mrkim.corespring.springcore.order;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import spring.mrkim.corespring.springcore.AppConfig;
 import spring.mrkim.corespring.springcore.member.Grade;
 import spring.mrkim.corespring.springcore.member.Member;
 import spring.mrkim.corespring.springcore.service.MemberService;
@@ -9,8 +11,15 @@ import spring.mrkim.corespring.springcore.service.MemberServiceImpl;
 
 class OrderServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+    MemberService memberService;
+    OrderService orderService;
+
+    @BeforeEach
+    public void beforeEach() {
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+        orderService = appConfig.orderService();
+    }
 
     @Test
     void createOrder() {

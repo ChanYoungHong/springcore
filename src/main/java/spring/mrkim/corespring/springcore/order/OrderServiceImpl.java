@@ -1,24 +1,23 @@
 package spring.mrkim.corespring.springcore.order;
 
 import spring.mrkim.corespring.springcore.discount.DiscountPolicy;
-import spring.mrkim.corespring.springcore.discount.FixDiscountPolicy;
-import spring.mrkim.corespring.springcore.discount.RateDiscountPolicy;
 import spring.mrkim.corespring.springcore.member.Member;
 import spring.mrkim.corespring.springcore.repository.MemberRepository;
-import spring.mrkim.corespring.springcore.repository.MemoryMemberRepository;
 
 
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    // 인터페이스만 의존하게 된다.
+    private final MemberRepository memberRepository;
+    private DiscountPolicy discountPolicy;
+//    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+//    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
-    public OrderServiceImpl(DiscountPolicy discountPolicy) {
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
-
-    //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-//    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
-    private DiscountPolicy discountPolicy;
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
